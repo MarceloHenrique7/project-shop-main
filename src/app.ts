@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
 import router from './routes/routes';
 
-import {requireAuth, checkUser} from './shared/middleware/AuthMiddleware';
+import {checkUser} from './shared/middleware/AuthMiddleware';
 import { StatusCodes } from 'http-status-codes';
 
 dotenv.config()
@@ -32,7 +32,10 @@ app.get('/', (req, res) => {
     res.status(StatusCodes.OK).render('start')
 })
 
-app.get('/home', requireAuth, (req, res) => {
+app.get('/home', checkUser, (req, res) => {
+    if (res.locals.user == null) {
+        return res.redirect('/')
+    }
     res.status(StatusCodes.OK).render('home')
 })
 

@@ -32,7 +32,7 @@ nav.side-menu {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.24);
     backdrop-filter: blur(8.4px);
     -webkit-backdrop-filter: blur(8.4px);
-
+    z-index: 999;
 }
 
 nav.side-menu.expandir{

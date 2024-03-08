@@ -1,0 +1,81 @@
+<%- include('partials/header'); -%>
+    <form>
+        <h1><span>Update</span></h1>
+        <div>
+            <span class="material-symbols-outlined">person</span>
+            <input type="text" name="user_name" placeholder="User Name" >
+        </div>
+        <div class="user_name error"></div>
+        <div>
+            <span class="material-symbols-outlined">mail</span>
+            <input type="email" name="email" placeholder="E-mail" >
+        </div>
+        <div class="email error"></div>
+        <div>
+            <span class="material-symbols-outlined">Lock</span>
+            <input type="password" name="password" placeholder="Password" >
+        </div>       
+        <div class="password error"></div>
+
+        <button type="submit" class="button-input-disabled">Updated user now</button>
+        <a class="toggleLink" href="./login">Login</a>
+    </form>
+
+    <script>
+        const form = document.querySelector('form')
+        const user_nameError = document.querySelector('.user_name.error')
+        const emailError = document.querySelector('.email.error')
+        const passwordError = document.querySelector('.password.error')
+
+       
+
+
+        
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            user_nameError.textContent = ''
+            emailError.textContent = ''
+            passwordError.textContent = ''  
+            
+            const user_name = form.user_name.value
+            const email = form.email.value
+            const password = form.password.value
+            
+            console.log(user_name, email, password)
+            try {
+                const res = await fetch('/update', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        user_name,
+                        email,
+                        password,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+                const data = await res.json();
+                console.log(data)
+
+                if (data.errors) {
+                    user_nameError.textContent = data.errors.user_name
+                    emailError.textContent = data.errors.email
+                    passwordError.textContent = data.errors.password
+                }
+
+                if (data.user) {
+                    location.assign('/home')
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+
+        })
+
+    </script>
+
+<%- include('partials/footer'); -%>
+

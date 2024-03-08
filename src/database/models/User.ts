@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument } from "mongoose";
-import { Model} from "mongoose";
+import { Model } from "mongoose";
 import { isEmail } from 'validator';
 import bcrypt from 'bcrypt'
 
@@ -8,17 +8,9 @@ type IUser = {
     email: string;
     password: string;
 }
-
-interface IUserMethods {
-    login(): IUser | Error;
-}
-
-interface UserModel extends Model<IUser, {}, IUserMethods> {
-    login(user_name: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>;
-  }
   
 
-const userSchema = new mongoose.Schema<IUser, UserModel>({ // criando um user schema
+const userSchema = new mongoose.Schema<IUser>({ // criando um user schema
     user_name: {
         type: String,
         required: [true, "please enter a username"],
@@ -43,10 +35,6 @@ const userSchema = new mongoose.Schema<IUser, UserModel>({ // criando um user sc
         maxlength: [20, "Maximum password length is 20 character"] // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
     },
 
-
-
-    
-
 })
 
 userSchema.post('save', function (doc, next) {
@@ -64,7 +52,7 @@ userSchema.pre('save', async function (next) {
 
 
 
-const User = mongoose.model<IUser, UserModel>('user', userSchema)
+const User = mongoose.model<IUser>('user', userSchema)
 
 
 export default User;
