@@ -1,0 +1,70 @@
+import mongoose, { HydratedDocument } from "mongoose";
+import { Model} from "mongoose";
+import { isEmail } from 'validator';
+import bcrypt from 'bcrypt'
+
+type IUser = {
+    user_name: string;
+    email: string;
+    password: string;
+}
+
+interface IUserMethods {
+    login(): IUser | Error;
+}
+
+interface UserModel extends Model<IUser, {}, IUserMethods> {
+    login(user_name: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>;
+  }
+  
+
+const userSchema = new mongoose.Schema<IUser, UserModel>({ // criando um user schema
+    user_name: {
+        type: String,
+        required: [true, "please enter a username"],
+        unique: true,
+        lowercase: true,
+        minlength: [6, "Minimum username length is 6 character"], // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
+        maxlength: [25, "Maximum username length is 20 character"] 
+    },
+
+    email: {
+        type: String,
+        required: [true, "please enter a email"], // e obrigatorio esse valor? 'caso user nao insira retorne essa mensagem 
+        unique: true,
+        lowercase: true,
+        validate: [isEmail, "Please enter a valid email"] // usando função do validator para verificar se esse campo e um email, se nao for. retorne essa mensagem 
+    },
+
+    password: {
+        type: String,
+        required: [true, "please enter a password"], // e obrigatorio esse valor? 'caso user nao insira retorne essa mensagem 
+        minlength: [6, "Minimum password length is 6 character"], // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
+        maxlength: [20, "Maximum password length is 20 character"] // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
+    },
+
+
+
+    
+
+})
+
+userSchema.post('save', function (doc, next) {
+    console.log("new user was created & saved", doc)
+    next()
+})
+
+
+userSchema.pre('save', async function (next) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+
+    next();
+})
+
+
+
+const User = mongoose.model<IUser, UserModel>('user', userSchema)
+
+
+export default User;
