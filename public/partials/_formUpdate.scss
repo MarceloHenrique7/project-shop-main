@@ -1,0 +1,89 @@
+
+.form_update {
+    width: 80%;
+    color: #333;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.19);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.form_update h1 {
+    margin-bottom: 65px;
+    font-weight: bolder;
+    font-size: 44px;
+}
+
+.form_update h1 span {
+    color: rgb(91, 91, 202);
+}
+
+.form_update div {
+    display: flex;
+    margin: 0 auto;
+}
+
+.form_update div span.material-symbols-outlined {
+    font-size: 1.8em;
+    color: #333;
+    padding: 10px;
+}
+
+.form_update div input {
+    border: none;
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.form_update div input, button {
+    width: 100%;
+    font-size: 1em;
+    color: #333;
+    font-weight: bolder;
+    background: none;
+}
+
+.form_update div input:focus {
+    outline: none;
+}
+
+.form_update div input::placeholder {
+    color: #0e0e0ea9;
+    font-size: 0.8em;
+}
+
+.form_update button {
+    width: 100%;
+    margin: 25px 0;
+    font-size: 18px;
+    padding: 12px;
+    color: #fff;
+    background-color: rgb(91, 91, 202);
+    border-radius: 12px;
+    border: none;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.342);
+    cursor: pointer;
+}
+
+.form_update a {
+    width: 100%;
+    color: #333;
+    text-decoration: underline;
+    font-weight: bolder;
+    font-size: 18px;
+    text-align: right;
+}
+
+.error {
+    color: #ff0040;
+    margin: 10px 2px;
+    font-size: 0.8em;
+}

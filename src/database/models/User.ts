@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema<IUser>({ // criando um user schema
         type: String,
         required: [true, "please enter a password"], // e obrigatorio esse valor? 'caso user nao insira retorne essa mensagem 
         minlength: [6, "Minimum password length is 6 character"], // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
-        maxlength: [20, "Maximum password length is 20 character"] // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
+        maxlength: [100, "Maximum password length is 20 character"] // o usuario digitou menos que 6 caracteres? retorne essa mensagem 
     },
 
 })
@@ -42,13 +42,6 @@ userSchema.post('save', function (doc, next) {
     next()
 })
 
-
-userSchema.pre('save', async function (next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-
-    next();
-})
 
 
 

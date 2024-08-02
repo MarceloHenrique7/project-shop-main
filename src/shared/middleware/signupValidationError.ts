@@ -33,7 +33,7 @@ export const errorsHandle = (err: any) => {
         }
 
         if (message.includes('invalid password')) {
-            errors.password = 'Invalid Password'
+            errors.password = 'any field is wrong, correction the field.'
         }
         
         if (message.includes('please enter a username')) {

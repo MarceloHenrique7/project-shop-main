@@ -18,8 +18,8 @@
             <i class="bi bi-list" id="btn-exp"></i>
         </div>
         <ul>
-            <li class="item-menu active">
-                <a href="#">
+            <li class="item-menu">
+                <a href="/home">
                     <span class="icon"><i class="bi bi-house-door"></i></span>
                     <span class="txt-link">Home</span>
                 </a>
@@ -44,14 +44,14 @@
             </li>
             
             <li class="item-menu">
-                <a href="#">
+                <a href="profile">
                     <span class="icon"><i class="bi bi-person-circle"></i></span>
                     <span class="txt-link">
                         <%= user.user_name %>
                     </span>
                 </a>
             </li>
-            <li class="item-menu">
+            <li class="item-menu profile">
                 <a href="logout">
                     <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
                     <span class="txt-link">
@@ -71,4 +71,22 @@
             </nav>
     <% } %>
     
-    
+    <script>
+        function selectLink() {
+
+            menuItem.forEach((item) => {
+                item.classList.remove('active');
+            });
+
+            this.classList.add('active');
+        }
+
+
+
+        const btnExp = document.querySelector('#btn-exp')
+        const menuSide = document.querySelector('.side-menu')
+
+        btnExp.addEventListener('click', function() {
+            menuSide.classList.toggle('expandir')
+        })
+    </script>

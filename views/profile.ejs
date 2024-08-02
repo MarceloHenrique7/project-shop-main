@@ -1,0 +1,38 @@
+<%- include('partials/header'); -%>
+
+
+<section class="content">
+    <div class="margin-left"></div>
+    <div class="user_infos">
+        <div class="profile_user">
+            <div class="box_title">
+                <h1>Your Profile</h1>
+            </div>
+            <div class="box_info_user">
+                <p>name user: <span><%= user.user_name %></span></p>
+                <p>email: <span><%= user.email %></span></p>
+                <div class="box_actions">
+                    <a class="update_action" onclick="handleForm()">Update</a>
+                    <a class="delete_action">Delete</a>
+                </div>
+            </div>
+        </div>
+        <%- include('update'); -%>
+    </div>
+</section>
+
+<script>
+    function handleForm() {
+        const form = document.querySelector('.form_update');
+        if (form.style.display === 'flex') {
+            form.style.display = 'none';
+        } else {
+            form.style.display = 'flex';
+        }
+    }
+
+</script>
+
+
+
+<%- include('partials/footer'); -%>

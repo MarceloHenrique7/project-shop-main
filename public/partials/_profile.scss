@@ -1,0 +1,98 @@
+.content {
+    width: 100vw;
+    display: flex;
+    transition: filter 0ms ease-in-out 0ms;
+
+    .margin-left {
+        width: 60px;
+    }
+
+}
+
+.user_infos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .profile_user {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    
+    
+        .box_title {
+            width: 50%;
+            max-width: 400px;
+            margin: 50px 0px;
+            text-align: justify;
+            font-weight: bold;
+        }
+    
+    
+        .box_info_user {
+            width: 80%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: space-around;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.19);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            p {
+                font-size: 1em;
+                margin-bottom: 20px;
+                font-weight: bold;
+                
+                span {
+                    font-weight: 100;
+                }
+            }
+    
+    
+            
+        }
+    
+        .box_actions {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            align-items: self-start;
+            justify-content: start;
+            a{
+                width: 100%;
+                max-width: 100px;
+                margin-right: 15px;
+                text-align: center;
+                color: #fff;
+                padding: 5px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                transition: 0.4s all ease-in-out;
+                cursor: pointer;
+            }
+
+            a.update_action {
+                background-color: rgb(91, 91, 202);
+            }
+            a.update_action:hover {
+                background-color: #333;
+            }
+
+            a.delete_action {
+                background-color: #ff0040;
+            }
+            a.delete_action:hover {
+                background-color: #333;
+            }
+        }
+    }
+}
+
+

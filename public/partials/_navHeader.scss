@@ -1,0 +1,112 @@
+nav.side-menu {
+    width: 60px;
+    height: 100%;
+    padding: 40px 0px 40px 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: .5s;
+    background: rgba(255, 255, 255, 0.19);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    z-index: 999;
+}
+
+.expandir {
+    width: 400px !important;
+}
+
+.btn-expandir {
+    width: 100%;
+    padding-left: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-expandir > i {
+    color: #333;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+ul {
+    height: 100%;
+    list-style-type: none;
+}
+
+.item-menu {
+    transition: .8s;
+}
+
+.active {
+    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+}
+
+.item-menu:hover {
+    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+}
+
+.item-menu a{
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 12%;
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 40px;
+}
+
+.txt-link {
+    margin-left: 120px;
+    transition: 1s;
+    opacity: 0;
+}
+
+.expandir .txt-link {
+    margin-left: 40px;
+    opacity: 1;
+}
+
+.item-menu a .icon > i {
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+nav.nav-no-auth {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    color: #333;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.list {
+    display: flex;
+    list-style: none;
+}
+
+.item {
+    margin: 0px 10px;
+}
+
+.item a {
+    color: #fff;
+    padding: 12px;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: rgb(91, 91, 202);
+    border-radius: 8px;
+    transition: 0.4s all ease-in-out;
+}
+
+.item a:hover {
+    color: #fff;
+    background-color: #333;
+}

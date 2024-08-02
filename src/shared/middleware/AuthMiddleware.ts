@@ -1,38 +1,54 @@
+import jwt from "jsonwebtoken";
 import User from "../../database/models/User";
-import { JWTService } from "../services/JWTService";
 import { Request, Response, NextFunction } from "express";
 import dotenv from 'dotenv';
-import { StatusCodes } from "http-status-codes";
 
 dotenv.config()
 
-
-export const checkUser = async (req: Request, res: Response, next: NextFunction) => {
+const requireAuth =  (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.jwt;
+    
     if (token) {
-        const isValid = await JWTService.verify(token)
-        if (isValid === 'JWT_SECRET_NOT_FOUND') {
-            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                errors: {
-                    default: 'user unauthenticated'
-                }
-            })
-            return next();
-        }
-        if (isValid === 'INVALID_TOKEN') {
-            res.locals.user = null;
-            res.status(StatusCodes.UNAUTHORIZED).json({
-                errors: {
-                    default: 'INVALID_TOKEN'
-                }
-            })
-            return next();
-        }
-        let user = await User.findById(isValid.uid);
-        res.locals.user = user;
-        return next();
+        jwt.verify(token, `${process.env.SECRET_KEY_SIGN}`, async (err: any, decodedToken: any) => {
+            if (err) {
+                res.locals.user = null
+                next()
+            } else {
+                let user = await User.findById(decodedToken.id);
+                res.locals.user = user;
+                next()
+            }
+        })
+    } else {
+        res.locals.user = null; // se o token nao existe significa que o user n esta logado, então define como null
+        next()
     }
-    res.locals.user = null;
-    return next();
-
+    
 }
+
+
+
+// const checkUser = (req: Request, res: Response, next: NextFunction) => {
+//     const token = req.cookies.jwt;
+
+//     if (token) {
+//         jwt.verify(token, `${process.env.SECRET_KEY_SIGN}`, async (err: any, decodedToken: any) => {
+//             if (err) {
+//                 console.log(err)
+//                 res.locals.user = null
+//                 next()
+//             } else {
+//                 let user = await User.findById(decodedToken.id);
+//                 res.locals.user = user;
+//                 next();
+//             }
+//         })
+//     } else {
+//         res.locals.user = null; // se o token nao existe significa que o user n esta logado, então define como null
+//         next()
+//     }
+
+// }
+
+
+export {requireAuth};

@@ -1,24 +1,28 @@
-<%- include('partials/header'); -%>
-    <form>
-        <h1><span>Update</span></h1>
+
+    <form class="form_update">
         <div>
             <span class="material-symbols-outlined">person</span>
-            <input type="text" name="user_name" placeholder="User Name" >
+            <input type="text" name="user_name" placeholder="User Name" value=<%= user.user_name %>>
         </div>
         <div class="user_name error"></div>
         <div>
             <span class="material-symbols-outlined">mail</span>
-            <input type="email" name="email" placeholder="E-mail" >
+            <input type="text" name="email" placeholder="E-mail" value=<%= user.email %>>
         </div>
         <div class="email error"></div>
         <div>
             <span class="material-symbols-outlined">Lock</span>
-            <input type="password" name="password" placeholder="Password" >
+            <input type="password" name="password" placeholder="Password">
         </div>       
         <div class="password error"></div>
+        <div>
+            <span class="material-symbols-outlined">Lock</span>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password">
+        </div>       
+        <div class="confirmPassword error"></div>
 
-        <button type="submit" class="button-input-disabled">Updated user now</button>
-        <a class="toggleLink" href="./login">Login</a>
+        <button type="submit" class="button-input-disabled">Update Data</button>
+        <a class="toggleLink" href="./login">Forget my password</a>
     </form>
 
     <script>
@@ -26,25 +30,25 @@
         const user_nameError = document.querySelector('.user_name.error')
         const emailError = document.querySelector('.email.error')
         const passwordError = document.querySelector('.password.error')
-
-       
-
-
+        const confirmPasswordError = document.querySelector('.confirmPassword.error')
         
+       
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             
             user_nameError.textContent = ''
             emailError.textContent = ''
             passwordError.textContent = ''  
+            confirmPasswordError.textContent = ''
             
             const user_name = form.user_name.value
             const email = form.email.value
             const password = form.password.value
+            const confirmPassword = form.confirmPassword.value
             
-            console.log(user_name, email, password)
-            try {
-                const res = await fetch('/update', {
+            if(password === confirmPassword) {
+                try {
+                await fetch('/update', {
                     method: 'PUT',
                     body: JSON.stringify({
                         user_name,
@@ -54,28 +58,34 @@
                     headers: {
                         'Content-Type': 'application/json'
                     }
+                }).then((res) => {
+                    if(res.status === 204) {
+                        return location.reload()
+                    }
+                    return res.json()
+                }).then((data) => {
+                    if(data.errors) {
+                        user_nameError.textContent = data.errors.body ? data.errors.body.user_name : data.errors.user_name
+                        emailError.textContent = data.errors.body ? data.errors.body.email : data.errors.email
+                        passwordError.textContent = data.errors.body ? data.errors.body.password : data.errors.password
+                        confirmPasswordError.textContent = data.errors.body ? data.errors.body.password : data.errors.password
+                        return
+                    }
+                }).catch((error) => {
+                    console.log(error)
                 })
-
-                const data = await res.json();
-                console.log(data)
-
-                if (data.errors) {
-                    user_nameError.textContent = data.errors.user_name
-                    emailError.textContent = data.errors.email
-                    passwordError.textContent = data.errors.password
-                }
-
-                if (data.user) {
-                    location.assign('/home')
-                }
-
-            } catch (error) {
+                
+            }  catch (error) {
                 console.log(error)
-            }
 
+            }
+            } else {
+                passwordError.textContent = "passwords don't match"
+                confirmPasswordError.textContent = "passwords don't match"
+                return
+            }
         })
 
     </script>
 
-<%- include('partials/footer'); -%>
 

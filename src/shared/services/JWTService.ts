@@ -18,29 +18,6 @@ const createToken = (id: string) => {
 }
 
 
-const verify = (token: string): IJwtData | 'JWT_SECRET_NOT_FOUND' | 'INVALID_TOKEN' => {
-    if(!process.env.SECRET_KEY_SIGN) return 'JWT_SECRET_NOT_FOUND'
-
-    try {
-    const decoded = jwt.verify(token, `${SECRET_KEY_SIGN}`)
-    console.log(decoded)
-
-    if (typeof decoded === 'string') {
-        return 'INVALID_TOKEN'
-    }
-    
-        return decoded as IJwtData
-    }
-
-    catch (error) {
-        return 'INVALID_TOKEN'
-    }
-
-}
-
-
-
 export const JWTService = {
-    createToken,
-    verify
+    createToken
 }
