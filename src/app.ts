@@ -45,6 +45,6 @@ app.get('/profile', requireAuth, (req, res) => {
 const USERNAME = process.env.MONGODB_USERNAME
 const PASSWORD = process.env.MONGODB_PASSWORD
 
-mongoose.connect(`mongodb+srv://${USERNAME}:${PASSWORD}@mern-food-ordering-app.cljl3ik.mongodb.net/?retryWrites=true&w=majority&appName=mern-food-ordering-app`, {})
+mongoose.connect(`mongodb+srv://${USERNAME}:${PASSWORD}@mern-food-ordering-app.cljl3ik.mongodb.net/shopmain?retryWrites=true&w=majority&appName=mern-food-ordering-app`, {})
 .then((res) => app.listen(PORT || 3000, () => console.log(`Connect to Server ${PORT || 3000}`)))
 .catch((err) => console.log(err))
